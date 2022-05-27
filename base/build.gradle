@@ -1,0 +1,30 @@
+plugins {
+    id 'java-gradle-plugin'
+}
+
+repositories {
+    mavenCentral()
+    maven {
+        url "https://plugins.gradle.org/m2/"
+    }
+}
+
+dependencies {
+    api 'com.fizzpod:gradle-gitignore-plugin:2.3.2'
+
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.2'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.2'
+}
+
+test {
+    useJUnitPlatform()
+}
+
+gradlePlugin {
+    plugins {
+        create("base") {
+            id = "ru.onboarding.configure.base"
+            implementationClass = "ru.onboarding.configure.base.BasePlugin"
+        }
+    }
+}

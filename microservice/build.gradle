@@ -1,0 +1,54 @@
+plugins {
+    id 'java-gradle-plugin'
+}
+
+repositories {
+    mavenCentral()
+    maven {
+        url "https://plugins.gradle.org/m2/"
+    }
+}
+
+dependencies {
+    api project(':base')
+
+    // spring
+    implementation 'org.springframework.boot:spring-boot-gradle-plugin:2.6.8'
+    implementation 'io.spring.gradle:dependency-management-plugin:1.0.11.RELEASE'
+
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.8.2'
+}
+
+
+gradlePlugin {
+    plugins {
+        create("microservice") {
+            id = 'ru.onboarding.configure.microservice'
+            implementationClass = 'ru.onboarding.configure.microservice.MicroservicePlugin'
+        }
+    }
+}
+
+// Add a source set for the functional test suite
+sourceSets {
+    functionalTest {
+    }
+}
+
+configurations.functionalTestImplementation.extendsFrom(configurations.testImplementation)
+
+tasks.register('functionalTest', Test) {
+    testClassesDirs = sourceSets.functionalTest.output.classesDirs
+    classpath = sourceSets.functionalTest.runtimeClasspath
+    useJUnitPlatform()
+}
+
+gradlePlugin.testSourceSets(sourceSets.functionalTest)
+
+tasks.named('check') {
+    dependsOn(tasks.functionalTest)
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}
