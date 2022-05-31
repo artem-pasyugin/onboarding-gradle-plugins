@@ -7,6 +7,7 @@ import org.gradle.api.Project
 import org.gradle.api.plugins.GroovyPlugin
 import org.gradle.api.plugins.JavaPlugin
 import org.gradle.util.GradleVersion
+import ru.onboarding.configure.base.configurers.GitIgnoreConfigurer
 import ru.onboarding.configure.base.plugin.BaseCheckstylePlugin
 
 class BasePlugin implements Plugin<Project> {
@@ -18,7 +19,8 @@ class BasePlugin implements Plugin<Project> {
                 JavaPlugin.class,
                 GroovyPlugin.class,
                 BaseCheckstylePlugin.class,
-                GitignorePlugin.class
+                GitignorePlugin.class,
+                GitIgnoreConfigurer.class
         )
     }
 
