@@ -1,7 +1,5 @@
 plugins {
     id 'java-library'
-    id 'maven-publish'
-    id 'signing'
 }
 
 group = 'ru.onboarding.configure'
@@ -10,63 +8,4 @@ version = '1.0.0'
 java {
     withJavadocJar()
     withSourcesJar()
-}
-
-publishing {
-    publications {
-        mavenJava(MavenPublication) {
-            artifactId = 'configure-gradle-library'
-            from components.java
-            versionMapping {
-                usage('java-api') {
-                    fromResolutionOf('runtimeClasspath')
-                }
-                usage('java-runtime') {
-                    fromResolutionResult()
-                }
-            }
-            pom {
-                name = 'Gradle library'
-                description = 'Конфигуратор Gradle проектов'
-                url = 'https://github.com/artem-pasyugin/onboarding-gradle-plugins'
-\
-                 licenses {
-                    license {
-                        name = 'The Apache License, Version 2.0'
-                        url = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
-                    }
-                }
-                developers {
-                    developer {
-                        id = 'apasyugin'
-                        name = 'Artem Pasyugin'
-                        email = 'artem@andraft.com'
-                    }
-                }
-                scm {
-                    connection = 'scm:git:github.com:artem-pasyugin/onboarding-gradle-plugins.git'
-                    developerConnection = 'scm:git@github.com:artem-pasyugin/onboarding-gradle-plugins.git'
-                    url = 'https://github.com/artem-pasyugin/onboarding-gradle-plugins'
-                }
-            }
-        }
-    }
-    repositories {
-        maven {
-            def releasesRepoUrl = layout.buildDirectory.dir('repos/releases')
-            def snapshotsRepoUrl = layout.buildDirectory.dir('repos/snapshots')
-            url = version.endsWith('SNAPSHOT') ? snapshotsRepoUrl : releasesRepoUrl
-        }
-    }
-}
-
-signing {
-    sign publishing.publications.mavenJava
-}
-
-
-javadoc {
-    if (JavaVersion.current().isJava9Compatible()) {
-        options.addBooleanOption('html5', true)
-    }
 }

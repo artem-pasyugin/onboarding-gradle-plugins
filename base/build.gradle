@@ -48,6 +48,8 @@ gradlePlugin {
     plugins {
         create("base") {
             id = "ru.onboarding.configure.base"
+            displayName = 'Base plugin'
+            description = 'Template for people to start their own plugin adventure'
             implementationClass = "ru.onboarding.configure.base.BasePlugin"
         }
     }

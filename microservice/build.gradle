@@ -1,7 +1,12 @@
 plugins {
     id 'java-gradle-plugin'
     id 'groovy'
+    id 'maven-publish'
+    id 'com.gradle.plugin-publish' version '0.18.0'
 }
+
+group = 'ru.onboarding'
+version = '1.0'
 
 repositories {
     mavenCentral()
@@ -52,9 +57,17 @@ gradlePlugin {
     plugins {
         create("microservice") {
             id = 'ru.onboarding.configure.microservice'
+            displayName = 'Microservice plugin'
+            description = 'Template for people to start their own plugin adventure with microservice'
             implementationClass = 'ru.onboarding.configure.microservice.MicroservicePlugin'
         }
     }
+}
+
+pluginBundle {
+    website = 'https://apasyugin.github.io/'
+    vcsUrl = 'https://github.com/artem-pasyugin/onboarding-gradle-plugins.git'
+    tags = ['microservice', 'spring', 'checkstyle', 'plugins']
 }
 
 tasks.named('test') {
